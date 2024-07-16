@@ -131,3 +131,95 @@ function resetIngredientFields() {
     <input type="text" id="ingredient5" name="ingredient5" required><br><br>
   `;
 }
+let recipes = [
+  {
+    title: "Fresh Watermelon Salad",
+    ingredients: [
+      "watermelon",
+      "mint",
+      "red onion",
+      "baby salad leaves",
+      "feta",
+    ],
+  },
+  {
+    title: "Strawberry Tart",
+    ingredients: [
+      "marzipan",
+      "sugar",
+      "butter",
+      "eggs",
+      "flour",
+      "vanilla sugar",
+      "chocolate",
+      "strawberries",
+    ],
+  },
+  {
+    title: "Potato Salad",
+    ingredients: [
+      "potatoes",
+      "asparagus",
+      "chives",
+      "onion",
+      "radishes",
+      "sour cream",
+      "mayonnaise",
+      "mustard",
+      "salt",
+      "pepper",
+    ],
+  },
+  {
+    title: "Apple Trifle",
+    ingredients: [
+      "apples",
+      "water",
+      "vanilla powder",
+      "lemon juice",
+      "sugar",
+      "breadcrumbs",
+      "butter",
+      "double cream",
+    ],
+  },
+];
+
+function displayRecipes(recipeArray) {
+  const recipeGrid = document.getElementById("recipe-grid");
+  recipeGrid.innerHTML = "";
+
+  recipeArray.forEach((recipe) => {
+    const recipeCard = document.createElement("div");
+    recipeCard.className = "recipe-card";
+    recipeCard.innerHTML = `
+      <h2>${recipe.title}</h2>
+      <p>Ingredients:</p>
+      <ul>
+        ${recipe.ingredients
+          .map((ingredient) => `<li>${ingredient}</li>`)
+          .join("")}
+      </ul>
+    `;
+    recipeGrid.appendChild(recipeCard);
+  });
+}
+
+function searchRecipe() {
+  const searchInput = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchInput)
+  );
+  displayRecipes(filteredRecipes);
+}
+
+function sortRecipes() {
+  const sortedRecipes = [...recipes].sort(
+    (a, b) => a.ingredients.length - b.ingredients.length
+  );
+  displayRecipes(sortedRecipes);
+}
+
+displayRecipes(recipes);
