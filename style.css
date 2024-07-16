@@ -6,3 +6,13 @@
     padding: 20px;
     margin-bottom: 20px;
 }
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .recipe-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }

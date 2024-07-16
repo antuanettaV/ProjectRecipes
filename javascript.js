@@ -31,6 +31,11 @@ function displayRecipe(recipe) {
   description.textContent = recipe.description;
   recipeElement.appendChild(description);
 
+  const img = document.createElement("img");
+  img.src = recipe.pictureUrl;
+  img.alt = recipe.name;
+  recipeElement.appendChild(img);
+
   const ingredientsTitle = document.createElement("h3");
   ingredientsTitle.textContent = "Ingredients:";
   recipeElement.appendChild(ingredientsTitle);
@@ -53,8 +58,7 @@ document
   .getElementById("recipe-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
-
-    const name = document.getElementById("name").value;
+    const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
     const pictureUrl = document.getElementById("pictureUrl").value;
     const ingredients = [];
@@ -68,10 +72,10 @@ document
 
     const newRecipe = {
       id: Date.now(),
-      name,
+      name: title,
       description,
       ingredients,
-      pictureUrl,
+      pictureUrl: pictureUrl,
     };
 
     displayRecipe(newRecipe);
@@ -83,13 +87,30 @@ function addIngredient() {
   ingredientCount++;
 
   const newIngredient = document.createElement("div");
-  newIngredient.innerHTML = `
-    <label for="ingredient${ingredientCount}">Ingredient ${ingredientCount}:</label>
-    <input type="text" id="ingredient${ingredientCount}" name="ingredient${ingredientCount}"><br><br>
-  `;
+
+  const label = document.createElement("label");
+  label.setAttribute("for", `ingredient${ingredientCount}`);
+  label.textContent = `Ingredient ${ingredientCount}: `;
+
+  const input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("id", `ingredient${ingredientCount}`);
+  input.setAttribute("name", `ingredient${ingredientCount}`);
+
+  const br1 = document.createElement("br");
+  const br2 = document.createElement("br");
+
+  newIngredient.appendChild(label);
+  newIngredient.appendChild(input);
+  newIngredient.appendChild(br1);
+  newIngredient.appendChild(br2);
 
   document.getElementById("ingredients-container").appendChild(newIngredient);
 }
+
+document
+  .getElementById("add_more_ingredient")
+  .addEventListener("click", addIngredient);
 
 function resetIngredientFields() {
   ingredientCount = 5;
@@ -109,38 +130,4 @@ function resetIngredientFields() {
     <label for="ingredient5">Ingredient 5:</label>
     <input type="text" id="ingredient5" name="ingredient5" required><br><br>
   `;
-}
-
-function displayRecipe(recipe) {
-  const container = document.getElementById("recipe-container");
-
-  const recipeElement = document.createElement("div");
-  recipeElement.className = "recipe";
-
-  const title = document.createElement("h2");
-  title.textContent = recipe.name;
-  recipeElement.appendChild(title);
-
-  const description = document.createElement("p");
-  description.textContent = recipe.description;
-  recipeElement.appendChild(description);
-
-  const img = document.createElement("img");
-  img.src = recipe.pictureUrl;
-  img.alt = recipe.name;
-  recipeElement.appendChild(img);
-
-  const ingredientsTitle = document.createElement("h3");
-  ingredientsTitle.textContent = "Ingredients:";
-  recipeElement.appendChild(ingredientsTitle);
-
-  const ingredientsList = document.createElement("ul");
-  recipe.ingredients.forEach((ingredient) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = ingredient;
-    ingredientsList.appendChild(listItem);
-  });
-  recipeElement.appendChild(ingredientsList);
-
-  container.appendChild(recipeElement);
 }
