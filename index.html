@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <form id="recipe-form">
+    <form id="recipe-form" type="submit">
       <h2>Add New Recipe</h2>
 
       <label for="title">Recipe Title:</label>
@@ -80,11 +80,12 @@
 
     <div id="image-container"></div>
 
-    <div id="recipe-container"></div>
-
-    <input type="text" id="searchInput" placeholder="Search by title" />
-    <button onclick="searchRecipe()">Search</button>
-    <button onclick="sortRecipes()">Sort by Ingredients</button>
+    <form id="search" type="submit">
+      <input type="text" id="searchInput" placeholder="Search by title" />
+      <button type="submit" id="search-recipe">Search</button>
+      <button type="submit" onclick="sortRecipes()">Sort by Ingredients</button>
+    </form>
+    
     <div id="recipe-grid" class="recipe-grid"></div>
 
     
