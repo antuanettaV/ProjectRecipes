@@ -78,7 +78,8 @@ document
       pictureUrl: pictureUrl,
     };
 
-    displayRecipe(newRecipe);
+    recipes.push(newRecipe);
+    displayRecipes(recipes);
     document.getElementById("recipe-form").reset();
     resetIngredientFields();
   });
@@ -131,57 +132,23 @@ function resetIngredientFields() {
     <input type="text" id="ingredient5" name="ingredient5" required><br><br>
   `;
 }
+
 let recipes = [
   {
     title: "Fresh Watermelon Salad",
-    ingredients: [
-      "watermelon",
-      "mint",
-      "red onion",
-      "baby salad leaves",
-      "feta",
-    ],
+    ingredients: ["watermelon", "mint", "red onion", "baby salad leaves", "feta"],
   },
   {
     title: "Strawberry Tart",
-    ingredients: [
-      "marzipan",
-      "sugar",
-      "butter",
-      "eggs",
-      "flour",
-      "vanilla sugar",
-      "chocolate",
-      "strawberries",
-    ],
+    ingredients: ["marzipan", "sugar", "butter", "eggs", "flour", "vanilla sugar", "chocolate", "strawberries"],
   },
   {
     title: "Potato Salad",
-    ingredients: [
-      "potatoes",
-      "asparagus",
-      "chives",
-      "onion",
-      "radishes",
-      "sour cream",
-      "mayonnaise",
-      "mustard",
-      "salt",
-      "pepper",
-    ],
+    ingredients: ["potatoes", "asparagus", "chives", "onion", "radishes", "sour cream", "mayonnaise", "mustard", "salt", "pepper"],
   },
   {
     title: "Apple Trifle",
-    ingredients: [
-      "apples",
-      "water",
-      "vanilla powder",
-      "lemon juice",
-      "sugar",
-      "breadcrumbs",
-      "butter",
-      "double cream",
-    ],
+    ingredients: ["apples", "water", "vanilla powder", "lemon juice", "sugar", "breadcrumbs", "butter", "double cream"],
   },
 ];
 
@@ -204,6 +171,16 @@ function displayRecipes(recipeArray) {
     recipeGrid.appendChild(recipeCard);
   });
 }
+
+document.getElementById("search").addEventListener("submit", function (event) {
+  event.preventDefault();
+  searchRecipe();
+  document.getElementById("searchInput").value = "";
+});
+
+document
+  .getElementById("search-recipe")
+  .addEventListener("click", searchRecipe);
 
 function searchRecipe() {
   const searchInput = document
