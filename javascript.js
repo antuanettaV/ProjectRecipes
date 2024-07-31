@@ -200,3 +200,41 @@ function sortRecipes() {
 }
 
 displayRecipes(recipes);
+
+let countdown;
+
+function startTimer() {
+    const input = document.getElementById('timerInput').value;
+    const timerDisplay = document.getElementById('timerDisplay');
+
+    if (countdown) {
+        clearInterval(countdown);
+    }
+
+    let timeLeft = parseInt(input);
+
+    if (isNaN(timeLeft) || timeLeft <= 0) {
+        alert('Please enter a valid number greater than 0');
+        return;
+    }
+
+    timerDisplay.textContent = `Time left: ${timeLeft}s`;
+
+    countdown = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Time left: ${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            alert('Time is up!');
+            timerDisplay.textContent = `Time left: 0s`;
+        }
+    }, 1000);
+}
+let pageTime = 0;
+const pageTimeDisplay = document.getElementById('pageTimeDisplay');
+
+setInterval(() => {
+    pageTime++;
+    pageTimeDisplay.textContent = `Time spent on page: ${pageTime}s`;
+}, 1000);
