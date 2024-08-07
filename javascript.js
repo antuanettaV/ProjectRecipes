@@ -201,40 +201,43 @@ function sortRecipes() {
 
 displayRecipes(recipes);
 
-let countdown;
+document.addEventListener('DOMContentLoaded', () => {
+  let countdown;
+  let pageTime = 0;
 
-function startTimer() {
-    const input = document.getElementById('timerInput').value;
-    const timerDisplay = document.getElementById('timerDisplay');
+  const timerDisplay = document.getElementById('timerDisplay');
+  const pageTimeDisplay = document.getElementById('pageTimeDisplay');
 
-    if (countdown) {
-        clearInterval(countdown);
-    }
+  window.startTimer = function() {
+      const input = document.getElementById('timerInput').value;
 
-    let timeLeft = parseInt(input);
+      if (countdown) {
+          clearInterval(countdown);
+      }
 
-    if (isNaN(timeLeft) || timeLeft <= 0) {
-        alert('Please enter a valid number greater than 0');
-        return;
-    }
+      let timeLeft = parseInt(input);
 
-    timerDisplay.textContent = `Time left: ${timeLeft}s`;
+      if (isNaN(timeLeft) || timeLeft <= 0) {
+          alert('Please enter a valid number greater than 0');
+          return;
+      }
 
-    countdown = setInterval(() => {
-        timeLeft--;
-        timerDisplay.textContent = `Time left: ${timeLeft}s`;
+      timerDisplay.textContent = `Time left: ${timeLeft}s`;
 
-        if (timeLeft <= 0) {
-            clearInterval(countdown);
-            alert('Time is up!');
-            timerDisplay.textContent = `Time left: 0s`;
-        }
-    }, 1000);
-}
-let pageTime = 0;
-const pageTimeDisplay = document.getElementById('pageTimeDisplay');
+      countdown = setInterval(() => {
+          timeLeft--;
+          timerDisplay.textContent = `Time left: ${timeLeft}s`;
 
-setInterval(() => {
-    pageTime++;
-    pageTimeDisplay.textContent = `Time spent on page: ${pageTime}s`;
-}, 1000);
+          if (timeLeft <= 0) {
+              clearInterval(countdown);
+              alert('Time is up!');
+              timerDisplay.textContent = `Time left: 0s`;
+          }
+      }, 1000);
+  }
+
+  setInterval(() => {
+      pageTime++;
+      pageTimeDisplay.textContent = `Time spent on page: ${pageTime}s`;
+  }, 1000);
+});
