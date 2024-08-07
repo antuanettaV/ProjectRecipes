@@ -200,3 +200,44 @@ function sortRecipes() {
 }
 
 displayRecipes(recipes);
+
+document.addEventListener('DOMContentLoaded', () => {
+  let countdown;
+  let pageTime = 0;
+
+  const timerDisplay = document.getElementById('timerDisplay');
+  const pageTimeDisplay = document.getElementById('pageTimeDisplay');
+
+  window.startTimer = function() {
+      const input = document.getElementById('timerInput').value;
+
+      if (countdown) {
+          clearInterval(countdown);
+      }
+
+      let timeLeft = parseInt(input);
+
+      if (isNaN(timeLeft) || timeLeft <= 0) {
+          alert('Please enter a valid number greater than 0');
+          return;
+      }
+
+      timerDisplay.textContent = `Time left: ${timeLeft}s`;
+
+      countdown = setInterval(() => {
+          timeLeft--;
+          timerDisplay.textContent = `Time left: ${timeLeft}s`;
+
+          if (timeLeft <= 0) {
+              clearInterval(countdown);
+              alert('Time is up!');
+              timerDisplay.textContent = `Time left: 0s`;
+          }
+      }, 1000);
+  }
+
+  setInterval(() => {
+      pageTime++;
+      pageTimeDisplay.textContent = `Time spent on page: ${pageTime}s`;
+  }, 1000);
+});
