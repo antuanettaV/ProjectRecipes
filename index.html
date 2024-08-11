@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <form id="recipe-form" type="submit">
+    <form id="recipe-form">
       <h2>Add New Recipe</h2>
 
       <label for="title">Recipe Title:</label>
@@ -22,7 +22,6 @@
         type="url"
         id="pictureUrl"
         name="pictureUrl"
-        63
         required
       /><br /><br />
 
@@ -68,8 +67,7 @@
         /><br /><br />
       </div>
 
-      <button type="button" id="add_more_ingredient">Add More Ingredient</button
-      ><br /><br />
+      <button type="button" id="add_more_ingredient">Add More Ingredient</button><br /><br />
 
       <button type="submit">Add Recipe</button>
     </form>
@@ -80,16 +78,28 @@
 
     <div id="image-container"></div>
 
-    <form id="search" type="submit">
+    <form id="search"></form>
       <input type="text" id="searchInput" placeholder="Search by title" />
       <button type="submit" id="search-recipe">Search</button>
-      <button type="submit" onclick="sortRecipes()">Sort by Ingredients</button>
+      <button onclick="sortRecipes()">Sort by Ingredients</button>
     </form>
     
     <div id="recipe-grid" class="recipe-grid"></div>
 
-    
-    <script src="./javascript.js"></script>
+    <div class="timer-container">
+        <h1>Cooking Timer</h1>
+        <label for="timerInput">Set timer (in seconds): </label>
+        <input type="number" id="timerInput" min="1">
+        <button onclick="startTimer()">Start Timer</button>
+        <p id="timerDisplay">Time left: 0s</p>
+    </div>
+
+    <div class="timer-container">
+        <h1>Page Time Tracker</h1>
+        <p id="pageTimeDisplay">Time spent on page: 0s</p>
+    </div>
+
+    <script src="javascript.js"></script>
 
     </body>
 </html>
