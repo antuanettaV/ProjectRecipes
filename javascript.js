@@ -200,10 +200,8 @@ function sortRecipes() {
 }
 
 displayRecipes(recipes);
-
 document.addEventListener('DOMContentLoaded', () => {
   let countdown;
-  let pageTime = 0;
 
   const timerDisplay = document.getElementById('timerDisplay');
   const pageTimeDisplay = document.getElementById('pageTimeDisplay');
@@ -235,9 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       }, 1000);
   }
-
+  
+  const userJoined = new Date();
+  
   setInterval(() => {
-      pageTime++;
+      const now = new Date();
+      const pageTime = Math.floor((now - userJoined) / 1000); 
       pageTimeDisplay.textContent = `Time spent on page: ${pageTime}s`;
   }, 1000);
 });
