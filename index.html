@@ -3,103 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Risalamande</title>
-    <link rel="stylesheet" href="./style.css" />
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <form id="recipe-form">
       <h2>Add New Recipe</h2>
+      <div id="form-container">
+        <div class="form-column">
+          <label for="title">Recipe Title:</label>
+          <input type="text" id="title" name="title" required />
 
-      <label for="title">Recipe Title:</label>
-      <input type="text" id="title" name="title" required /><br /><br />
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required></textarea>
 
-      <label for="description">Description:</label>
-      <textarea id="description" name="description" required></textarea
-      ><br /><br />
+          <label for="pictureUrl">Image URL:</label>
+          <input type="url" id="pictureUrl" name="pictureUrl" required />
 
-      <label for="pictureUrl">Image URL:</label>
-      <input
-        type="url"
-        id="pictureUrl"
-        name="pictureUrl"
-        required
-      /><br /><br />
+          <label for="ingredient1">Ingredient 1:</label>
+          <input type="text" id="ingredient1" name="ingredient1" required />
 
-      <div id="ingredients-container">
-        <label for="ingredient1">Ingredient 1:</label>
-        <input
-          type="text"
-          id="ingredient1"
-          name="ingredient1"
-          required
-        /><br /><br />
+          <label for="ingredient2">Ingredient 2:</label>
+          <input type="text" id="ingredient2" name="ingredient2" required />
 
-        <label for="ingredient2">Ingredient 2:</label>
-        <input
-          type="text"
-          id="ingredient2"
-          name="ingredient2"
-          required
-        /><br /><br />
+          <label for="ingredient3">Ingredient 3:</label>
+          <input type="text" id="ingredient3" name="ingredient3" required />
+        </div>
 
-        <label for="ingredient3">Ingredient 3:</label>
-        <input
-          type="text"
-          id="ingredient3"
-          name="ingredient3"
-          required
-        /><br /><br />
+        <div class="form-column">
+          <label for="ingredient4">Ingredient 4:</label>
+          <input type="text" id="ingredient4" name="ingredient4" required />
 
-        <label for="ingredient4">Ingredient 4:</label>
-        <input
-          type="text"
-          id="ingredient4"
-          name="ingredient4"
-          required
-        /><br /><br />
+          <label for="ingredient5">Ingredient 5:</label>
+          <input type="text" id="ingredient5" name="ingredient5" required />
 
-        <label for="ingredient5">Ingredient 5:</label>
-        <input
-          type="text"
-          id="ingredient5"
-          name="ingredient5"
-          required
-        /><br /><br />
+          <button type="button" id="add_more_ingredient">Add More Ingredient</button>
+
+          <button type="submit">Add Recipe</button>
+        </div>
       </div>
-
-      <button type="button" id="add_more_ingredient">Add More Ingredient</button><br /><br />
-
-      <button type="submit">Add Recipe</button>
     </form>
-
-    <div id="image-container"></div>
 
     <div id="recipe-container"></div>
 
-    <div id="image-container"></div>
-
-    <form id="search"></form>
+    <form id="search">
       <input type="text" id="searchInput" placeholder="Search by title" />
       <button type="submit" id="search-recipe">Search</button>
-      <button onclick="sortRecipes()">Sort by Ingredients</button>
+      <button type="button" onclick="sortRecipes()">Sort by Ingredients</button>
     </form>
-    
+
     <div id="recipe-grid" class="recipe-grid"></div>
 
     <div class="timer-container">
-        <h1>Cooking Timer</h1>
-        <label for="timerInput">Set timer (in seconds): </label>
-        <input type="number" id="timerInput" min="1">
-        <button onclick="startTimer()">Start Timer</button>
-        <p id="timerDisplay">Time left: 0s</p>
+      <h1>Cooking Timer</h1>
+      <label for="timerInput">Set timer (in seconds): </label>
+      <input type="number" id="timerInput" min="1" />
+      <button type="button" onclick="startTimer()">Start Timer</button>
+      <p id="timerDisplay">Time left: 0s</p>
     </div>
 
     <div class="timer-container">
-        <h1>Page Time Tracker</h1>
-        <p id="pageTimeDisplay">Time spent on page: 0s</p>
+      <h1>Page Time Tracker</h1>
+      <p id="pageTimeDisplay">Time spent on page: 0s</p>
     </div>
 
     <script src="javascript.js"></script>
-
-    </body>
+  </body>
 </html>
