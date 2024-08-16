@@ -49,27 +49,25 @@
       <button type="submit" id="search-recipe">Search</button>
       <button type="button" id="sort-recipes">Sort by Ingredients</button>
     </form>
+
+    <form id="ingredient-search">
+      <label for="ingredientSearchInput">Search for Ingredient:</label>
+      <input type="text" id="ingredientSearchInput" name="ingredientSearchInput" required>
+      <button type="submit">Search Ingredient</button>
+    </form>
     
-    <div class="timer-container">
-        <h1>Cooking Timer</h1>
-        <label for="timerInput">Set timer (in seconds): </label>
-        <input type="number" id="timerInput" min="1">
-        <button type="button" id="start-timer">Start Timer</button>
-        <p id="timerDisplay">Time left: 0s</p>
-    </div>
+    <div id="ingredient-price-results"></div>
+    
+    <label for="timerInput">Set timer (in seconds): </label>
+<input type="number" id="timerInput" min="1">
+<button type="button" id="start-timer">Start Timer</button>
+<p id="timerDisplay">Time left: 0s</p>
 
     <div class="timer-container">
         <h1>Page Time Tracker</h1>
         <p id="pageTimeDisplay">Time spent on page: 0s</p>
     </div>
-    <form id="ingredient-search">
-        <h2>Search Ingredient Prices</h2>
-        <label for="ingredientSearchInput">Ingredient Name:</label>
-        <input type="text" id="ingredientSearchInput" placeholder="Enter ingredient name" />
-        <button type="submit" id="search-ingredient">Search</button>
-      </form>
-      
-      <div id="ingredient-price-container"></div>
+    
 
     <script src="main.js"></script>
   </body>
