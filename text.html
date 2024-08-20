@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Risalamande</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <form id="recipe-form">
+      <h2>Add New Recipe</h2>
+
+      <label for="title">Recipe Title:</label>
+      <input type="text" id="title" name="title" required /><br /><br />
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" required></textarea><br /><br />
+
+      <label for="pictureUrl">Image URL:</label>
+      <input type="url" id="pictureUrl" name="pictureUrl" required /><br /><br />
+
+      <div id="ingredients-container">
+        <label for="ingredient1">Ingredient 1:</label>
+        <input type="text" id="ingredient1" name="ingredient1" required /><br /><br />
+
+        <label for="ingredient2">Ingredient 2:</label>
+        <input type="text" id="ingredient2" name="ingredient2" required /><br /><br />
+
+        <label for="ingredient3">Ingredient 3:</label>
+        <input type="text" id="ingredient3" name="ingredient3" required /><br /><br />
+
+        <label for="ingredient4">Ingredient 4:</label>
+        <input type="text" id="ingredient4" name="ingredient4" required /><br /><br />
+
+        <label for="ingredient5">Ingredient 5:</label>
+        <input type="text" id="ingredient5" name="ingredient5" required /><br /><br />
+      </div>
+
+      <button type="button" id="add_more_ingredient">Add More Ingredient</button><br /><br />
+
+      <button type="submit">Add Recipe</button>
+    </form>
+
+    <div id="recipe-container"></div>
+    <div id="recipe-grid" class="recipe-grid"></div>
+
+    <form id="search">
+      <input type="text" id="searchInput" placeholder="Search by title" />
+      <button type="submit" id="search-recipe">Search</button>
+      <button type="button" id="sort-recipes">Sort by Ingredients</button>
+    </form>
+
+    <form id="ingredient-search">
+      <label for="ingredientSearchInput">Search for Ingredient:</label>
+      <input type="text" id="ingredientSearchInput" name="ingredientSearchInput" required>
+      <button type="submit">Search Ingredient</button>
+    </form>
+    
+    <div id="ingredient-price-results"></div>
+    
+    <label for="timerInput">Set timer (in seconds): </label>
+<input type="number" id="timerInput" min="1">
+<button type="button" id="start-timer">Start Timer</button>
+<p id="timerDisplay">Time left: 0s</p>
+
+    <div class="timer-container">
+        <h1>Page Time Tracker</h1>
+        <p id="pageTimeDisplay">Time spent on page: 0s</p>
+    </div>
+    
+
+    <script src="main.js"></script>
+  </body>
+</html>
