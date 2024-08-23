@@ -1,10 +1,11 @@
 let ingredientCount = 5;
 let recipes = [];
-const ingredientPrices = {};
 
 async function fetchRecipes() {
   try {
-    const response = await fetch("https://raw.githubusercontent.com/antuanettaV/antuanettaV.github.io/main/test.json");
+    const response = await fetch(
+      "https://raw.githubusercontent.com/antuanettaV/antuanettaV.github.io/main/test.json"
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch recipes");
     }
@@ -25,14 +26,22 @@ function displayRecipes(recipeArray) {
     recipeCard.className = "recipe-card";
     recipeCard.innerHTML = `
       <h2>${recipe.name}</h2>
-      <img src="${recipe.pictureUrl}" alt="${recipe.name}" style="max-width: 100%; height: auto;" />
+      <img src="${recipe.pictureUrl}" alt="${
+      recipe.name
+    }" style="max-width: 100%; height: auto;" />
       <p>Ingredients:</p>
       <ul>
-        ${recipe.ingredients.map(ingredient => `
+        ${recipe.ingredients
+          .map(
+            (ingredient) => `
           <li>
-            ${ingredient.name} - ${ingredient.quantity || "N/A"} - DKK ${ingredient.price || "N/A"}
+            ${ingredient.name} - ${ingredient.quantity || "N/A"} - DKK ${
+              ingredient.price || "N/A"
+            }
           </li>
-        `).join("")}
+        `
+          )
+          .join("")}
       </ul>
       <p>${recipe.description || ""}</p>
     `;
@@ -40,38 +49,41 @@ function displayRecipes(recipeArray) {
   });
 }
 
-fetchRecipes();
+document
+  .getElementById("recipe-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
 
-document.getElementById("recipe-form").addEventListener("submit", function (event) {
-  event.preventDefault();
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const pictureUrl = document.getElementById("pictureUrl").value;
+    const ingredients = [];
 
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
-  const pictureUrl = document.getElementById("pictureUrl").value;
-  const ingredients = [];
-
-  for (let i = 1; i <= ingredientCount; i++) {
-    const ingredient = document.getElementById(`ingredient${i}`).value;
-    if (ingredient && ingredient.trim() !== "") {
-      ingredients.push({ name: ingredient.trim() });
+    for (let i = 1; i <= ingredientCount; i++) {
+      const ingredient = document.getElementById(`ingredient${i}`).value;
+      if (ingredient && ingredient.trim() !== "") {
+        ingredients.push({ name: ingredient.trim() });
+      }
     }
-  }
 
-  const newRecipe = {
-    id: Date.now(),
-    name: title || "No title provided",
-    description: description || "No description available",
-    ingredients: ingredients.length > 0 ? ingredients : [{ name: "No ingredients available" }],
-    pictureUrl: pictureUrl || "",
-  };
+    const newRecipe = {
+      id: Date.now(),
+      name: title || "No title provided",
+      description: description || "No description available",
+      ingredients:
+        ingredients.length > 0
+          ? ingredients
+          : [{ name: "No ingredients available" }],
+      pictureUrl: pictureUrl || "",
+    };
 
-  recipes.push(newRecipe);
+    recipes.push(newRecipe);
 
-  displayRecipes(recipes);
+    displayRecipes(recipes);
 
-  document.getElementById("recipe-form").reset();
-  resetIngredientFields();
-});
+    document.getElementById("recipe-form").reset();
+    resetIngredientFields();
+  });
 
 function addIngredient() {
   ingredientCount++;
@@ -93,7 +105,9 @@ function addIngredient() {
   document.getElementById("ingredients-container").appendChild(newIngredient);
 }
 
-document.getElementById("add_more_ingredient").addEventListener("click", addIngredient);
+document
+  .getElementById("add_more_ingredient")
+  .addEventListener("click", addIngredient);
 
 function resetIngredientFields() {
   ingredientCount = 5;
@@ -115,76 +129,116 @@ function resetIngredientFields() {
   `;
 }
 
-document.getElementById("search").addEventListener("submit", function (event) {
-  event.preventDefault();
-  searchRecipe();
-  document.getElementById("searchInput").value = "";
-});
-
-document.getElementById("search-recipe").addEventListener("click", searchRecipe);
-
 async function searchRecipe() {
-  const searchInput = document.getElementById("searchInput").value.toLowerCase();
+  const searchInput = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
   if (!recipes.length) {
     await fetchRecipes();
   }
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.name.toLowerCase().includes(searchInput)
   );
+
   displayRecipes(filteredRecipes);
 }
 
-async function fetchIngredientPrices() {
-  try {
-    const response = await fetch("https://raw.githubusercontent.com/antuanettaV/antuanettaV.github.io/main/test.json");
-    if (!response.ok) {
-      throw new Error("Failed to fetch ingredient prices");
-    }
-    const data = await response.json();
-
-    
-    Object.keys(ingredientPrices).forEach(key => delete ingredientPrices[key]);
-
-    
-    data.forEach(recipe => {
-      recipe.ingredients.forEach(ingredient => {
-        ingredientPrices[ingredient.name.toLowerCase()] = {
-          price: ingredient.price,
-          quantity: ingredient.quantity || "N/A"
-        };
-      });
-    });
-
-    
-    console.log("Ingredient prices:", ingredientPrices);
-
-  } catch (error) {
-    console.error("Error fetching ingredient prices:", error);
-    alert("Failed to load ingredient prices. Please try again later.");
-  }
-}
-
-function searchIngredientPrices() {
-  const searchInput = document.getElementById("ingredientSearchInput").value.toLowerCase();
-  const resultsDiv = document.getElementById("ingredient-price-results");
-  resultsDiv.innerHTML = "";
-
-  
-  const ingredientData = ingredientPrices[searchInput];
-
-  if (ingredientData) {
-    resultsDiv.innerHTML = `<p>Name: ${searchInput.charAt(0).toUpperCase() + searchInput.slice(1)}<br>Quantity: ${ingredientData.quantity}<br>Price: DKK ${ingredientData.price.toFixed(2)}</p>`;
-  } else {
-    resultsDiv.innerHTML = `<p>No price or quantity available for ${searchInput.charAt(0).toUpperCase() + searchInput.slice(1)}</p>`;
-  }
-}
-
-document.getElementById("ingredient-search").addEventListener("submit", function (event) {
+document.getElementById("search").addEventListener("submit", function (event) {
   event.preventDefault();
-  searchIngredientPrices();
+  searchRecipe();
+  document.getElementById("searchInput").value = "";
 });
 
-fetchIngredientPrices();
+document
+  .getElementById("search-recipe")
+  .addEventListener("click", searchRecipe);
+
+  function filterByIngredientCount(maxCount) {
+    if (isNaN(maxCount) || maxCount < 1) {
+      alert("Please enter a valid number of ingredients.");
+      return;
+    }
+  
+    const filteredRecipes = recipes.filter(
+      (recipe) => recipe.ingredients.length <= maxCount
+    );
+  
+    filteredRecipes.sort((a, b) => {
+      if (a.ingredients.length < b.ingredients.length) {
+        return -1;
+      } 
+      if (a.ingredients.length > b.ingredients.length) {
+        return 1;
+      }
+      
+      return 0;
+    });
+  
+    displayRecipes(filteredRecipes);
+  }
+  
+
+document
+  .getElementById("sort-recipes-by-ingredient-count")
+  .addEventListener("click", function () {
+    const ingredientCountInput = parseInt(
+      document.getElementById("ingredientCountInput").value,
+      10
+    );
+    filterByIngredientCount(ingredientCountInput);
+  });
+
+document
+  .getElementById("ingredient-search")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const ingredientSearchInput = document
+      .getElementById("ingredientSearchInput")
+      .value.trim()
+      .toLowerCase();
+    const results = searchIngredientPrice(ingredientSearchInput);
+    displayIngredientPriceResults(results);
+  });
+
+function searchIngredientPrice(ingredientName) {
+  const resultArray = [];
+
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.name.toLowerCase() === ingredientName) {
+        resultArray.push({
+          recipeName: recipe.name,
+          ingredientName: ingredient.name,
+          quantity: ingredient.quantity || "N/A",
+          price: ingredient.price || "N/A",
+        });
+      }
+    });
+  });
+
+  return resultArray;
+}
+
+function displayIngredientPriceResults(results) {
+  const resultsContainer = document.getElementById("ingredient-price-results");
+  resultsContainer.innerHTML = "";
+
+  if (results.length === 0) {
+    resultsContainer.innerHTML = "<p>No results found.</p>";
+    return;
+  }
+
+  const resultList = document.createElement("ul");
+  results.forEach((result) => {
+    const resultItem = document.createElement("li");
+    resultItem.innerHTML = `
+      <strong>${result.recipeName}</strong>: ${result.ingredientName} - ${result.quantity} - DKK ${result.price}
+    `;
+    resultList.appendChild(resultItem);
+  });
+
+  resultsContainer.appendChild(resultList);
+}
 
 let timerInterval;
 
@@ -218,3 +272,5 @@ setInterval(() => {
   const timeSpent = Math.floor((Date.now() - pageStartTime) / 1000);
   pageTimeDisplay.textContent = `Time spent on page: ${timeSpent}s`;
 }, 1000);
+
+fetchRecipes();
